@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Depo Fatura Karşılaştırma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,620&family=Outfit:wght@400;600;650&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="masthead">
+      <div>
+        <p class="kicker">Ecza deposu</p>
+        <h1>Fatura karşılaştırma</h1>
+        <p class="lede">Depo ekstresindeki fatura no ile referans listedeki ref. belge no karşılaştırılır. Birinde olup diğerinde olmayan numaralar aşağıda listelenir. Aynı biçimdeki yeni dosyaları her seferinde buraya bırakmanız yeterli.</p>
+      </div>
+      <p class="privacy">Dosyalar bu tarayıcıda okunur, sunucuya gönderilmez.</p>
+    </header>
+
+    <section class="drops">
+      <article class="card drop" data-role="ekstre" tabindex="0">
+        <div class="drop-top">
+          <h2>Depo ekstre</h2>
+          <span class="tag">.xlsx</span>
+        </div>
+        <p>Fatura No sütunu kullanılır. Dosyayı bırakın veya seçmek için tıklayın.</p>
+        <div class="file-name">Dosya seçilmedi</div>
+        <div class="meta"></div>
+        <label class="field">
+          <span>Karşılaştırılacak sütun</span>
+          <select aria-label="Ekstre sütunu"></select>
+        </label>
+        <input type="file" accept=".xlsx,.xls,.csv,.txt" hidden>
+      </article>
+
+      <article class="card drop" data-role="ref" tabindex="0">
+        <div class="drop-top">
+          <h2>Referans liste</h2>
+          <span class="tag">.xls / .xlsx</span>
+        </div>
+        <p>Ref. Belge No sütunu kullanılır. Dosyayı bırakın veya seçmek için tıklayın.</p>
+        <div class="file-name">Dosya seçilmedi</div>
+        <div class="meta"></div>
+        <label class="field">
+          <span>Karşılaştırılacak sütun</span>
+          <select aria-label="Referans sütunu"></select>
+        </label>
+        <input type="file" accept=".xlsx,.xls,.csv,.txt" hidden>
+      </article>
+    </section>
+
+    <div class="actions">
+      <button id="compare" type="button" disabled>Karşılaştır</button>
+      <button id="export" class="secondary" type="button" disabled>Farkları indir</button>
+      <button id="reset" class="secondary" type="button">Temizle</button>
+      <p id="note" class="note"></p>
+      <p id="error" class="error hidden"></p>
+    </div>
+
+    <section id="result" class="hidden">
+      <div class="stats">
+        <article class="card stat"><b id="count-ekstre">0</b><span>Ekstre tekil fatura no</span></article>
+        <article class="card stat"><b id="count-ref">0</b><span>Referans tekil ref. belge no</span></article>
+        <article class="card stat warn"><b id="count-only-ekstre">0</b><span>Sadece ekstrede</span></article>
+        <article class="card stat bad"><b id="count-only-ref">0</b><span>Sadece referansta</span></article>
+      </div>
+      <p id="verdict" class="verdict"></p>
+      <div class="actions">
+        <input id="search" type="search" placeholder="Sonuçlarda ara">
+      </div>
+
+      <section class="panel">
+        <header>
+          <h3>Sadece depo ekstresinde</h3>
+          <span id="only-ekstre-pill" class="pill amber">0 numara</span>
+        </header>
+        <div class="scroll">
+          <table id="ekstre-table"><thead></thead><tbody></tbody></table>
+        </div>
+        <p class="empty"></p>
+      </section>
+
+      <section class="panel">
+        <header>
+          <h3>Sadece referans listede</h3>
+          <span id="only-ref-pill" class="pill rose">0 numara</span>
+        </header>
+        <div class="scroll">
+          <table id="ref-table"><thead></thead><tbody></tbody></table>
+        </div>
+        <p class="empty"></p>
+      </section>
+
+      <section class="panel">
+        <header>
+          <h3>Eşleşenler</h3>
+          <span id="match-pill" class="pill ok">0 numara</span>
+        </header>
+        <details>
+          <summary>Eşleşen faturaları göster</summary>
+          <div class="scroll">
+            <table id="match-table"><thead></thead><tbody></tbody></table>
+          </div>
+          <p class="empty"></p>
+        </details>
+      </section>
+    </section>
+
+    <footer>Aynı ekstre ve referans biçimindeki sonraki dosyalar da bu sayfadan karşılaştırılır.</footer>
+  </main>
+  <script src="vendor/xlsx.full.min.js"></script>
+  <script src="app.js"></script>
+  <script src="ui.js"></script>
+</body>
+</html>

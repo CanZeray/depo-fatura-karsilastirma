@@ -1,0 +1,5 @@
+*.xls
+*.xlsx
+*.xlsx#
+.~lock*
+node_modules/
